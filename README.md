@@ -15,13 +15,13 @@ Source code for any simply  image's filters.
 - Use image filters
     - #### Median filter
         The median filter is a non-linear digital filtering technique, often used to remove noise from an image or signal.
-        <img src="./img/median-filter.jpg" width="50%"/>
+        ![median-filter](./img/median-filter.jpg)
         `python median {rad} {input_image} {output_image}`
     - #### Gauss filter (blur)
         In image processing, a Gaussian blur (also known as Gaussian smoothing) is the result of blurring an image by a Gaussian function (named after mathematician and scientist Carl Friedrich Gauss)
-        <img src="./img/gauss-filter.jpg" width="50%"/>
+        ![gauss-filter](./img/gauss-filter.jpg)
         `python gauss {sigma_d} {input_image} {output_image}`
     - #### Bilateral filter
         A bilateral filter is a non-linear, edge-preserving, and noise-reducing smoothing filter for images. It replaces the intensity of each pixel with a weighted average of intensity values from nearby pixels. This weight can be based on a Gaussian distribution. Crucially, the weights depend not only on Euclidean distance of pixels, but also on the radiometric differences (e.g., range differences, such as color intensity, depth distance, etc.). This preserves sharp edges.
-        <img src="./img/bilateral-filter.jpg" width="70%"/>
+        ![bilateral-filter](./img/bilateral-filter.jpg)
         `python bilateral {sigma_d} {sigma_r} {input_image} {output_image}`

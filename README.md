@@ -14,9 +14,9 @@ Source code for any simply  image's filters.
         `python main.py ssim {image_path_1} {image_path_2}`
 - Use image filters
     - #### Median filter
-        The median filter is a non-linear digital filtering technique, often used to remove noise from an image or signal.
+        The median filter is a non-linear digital filtering technique, often used to remove noise from an image or signal.</br>
         ![median-filter](./img/median-filter.jpg)</br>
-        `python median {rad} {input_image} {output_image}`</br>
+        `python median {rad} {input_image} {output_image}`
     - #### Gauss filter (blur)
         In image processing, a Gaussian blur (also known as Gaussian smoothing) is the result of blurring an image by a Gaussian function (named after mathematician and scientist Carl Friedrich Gauss)</br>
         ![gauss-filter](./img/gauss-filter.jpg)</br>

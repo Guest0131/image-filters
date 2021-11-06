@@ -82,31 +82,26 @@ def SSIM(input_file_1, input_file_2):
     return ssim_map.mean()
 
 
-def median_filter(data, filter_size):
-    temp = []
-    indexer = filter_size // 2
-    data_final = []
-    data_final = np.zeros((len(data),len(data[0])))
-    for i in range(len(data)):
+def median_filter(img, size):
+    m,n=img.shape
+    
+    # Traverse the image. For every 3X3 or 5x5 area,find the median of the pixels and replace the ceter pixel by the median 
+    img_new = np.zeros([m, n]) 
+    len=int((size-1)/2)
+    median=int((size*size)/2)
+    temp=list()
+    for i in range(len, m-len): 
+        for j in range(len, n-len): 
+            for k in range (i-len,i+len+1):
+                for w in range (j-len,j+len+1):
+                    temp.append(img[k,w])
+            
+            temp = sorted(temp) 
+            img_new[i, j]= temp[median] 
+            temp.clear()
 
-        for j in range(len(data[0])):
-
-            for z in range(filter_size):
-                if i + z - indexer < 0 or i + z - indexer > len(data) - 1:
-                    for c in range(filter_size):
-                        temp.append(0)
-                else:
-                    if j + z - indexer < 0 or j + indexer > len(data[0]) - 1:
-                        temp.append(0)
-                    else:
-                        for k in range(filter_size):
-                            temp.append(data[i + z - indexer][j + k - indexer])
-
-            temp.sort()
-            data_final[i][j] = temp[len(temp) // 2]
-            temp = []
-
-    return Image.fromarray(data_final)
+    img_new = img_new.astype(np.uint8) 
+    return img_new
 
 def gaussian(x,sigma):
     return (1.0/(2*np.pi*(sigma**2)))*np.exp(-(x**2)/(2*(sigma**2)))
@@ -275,11 +270,10 @@ if __name__ == '__main__':
         contrast = cv2.cvtColor(contrast, cv2.COLOR_BGR2GRAY)
         print(SSIM(original, contrast))
     if args[0] == "median":
-        img = Image.open(args[2]).convert("L")
-        arr = np.array(img)
-        removed_noise = median_filter(arr, int(args[1])) 
-        img = removed_noise
-        img.convert("RGB").save(args[3])
+        img = cv2.imread(args[2], 0)
+        filtred_image = median_filter(img, int(args[1])) 
+        img_res = cv2.cvtColor(filtred_image.astype("uint8"),cv2.COLOR_BGR2RGB)
+        cv2.imwrite(args[3], img_res)
 
     if args[0] == "gauss":
         gauss_filter = GaussianFilter(float(args[1]))
